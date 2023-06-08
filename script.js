@@ -94,3 +94,27 @@ const init = async () => {
 }
 
 init();
+
+/**
+ * In "removePlayer" function use DELETE method to remove an object of player by ID
+ */
+async function deletePlayer(playerId) {
+    try {
+      const response = await fetch(`${https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-et-web-pt-b/players}/${playerId}`, {
+        method: "DELETE",
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Player deleted successfully:", data);
+      } else {
+        throw new Error("Failed to delete player");
+      }
+    } catch (error) {
+      console.error("Error deleting player:", error);
+    }
+  }
+  
+  // Call the function with the desired player ID
+  deletePlayer(playerId);
+  
