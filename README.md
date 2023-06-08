@@ -1,6 +1,7 @@
 # Block23-Puppy-Bowl
 
 Please review the following before start coding: 
+
 API Documentation: https://fsa-puppy-bowl.herokuapp.com/api/
 
 # Deadlines: 
