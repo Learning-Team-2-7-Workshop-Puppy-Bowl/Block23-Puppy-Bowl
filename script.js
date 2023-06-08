@@ -117,4 +117,4 @@ async function deletePlayer(playerId) {
   
   // Call the function with the desired player ID
   deletePlayer(playerId);
-  
+   
