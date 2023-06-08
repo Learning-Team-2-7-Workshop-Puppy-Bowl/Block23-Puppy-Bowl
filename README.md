@@ -6,7 +6,7 @@ API Documentation: https://fsa-puppy-bowl.herokuapp.com/api/
 
 # Deadlines: 
 
-1- June 8, Complete: fethcing and removing functions
+-[] June 8, Complete: fethcing and removing functions
 
 2- June 9, Complete: Rending functions and buttons
 
