@@ -73,6 +73,38 @@ const removePlayer = async (playerId) => {
 const renderAllPlayers = (playerList) => {
     try {
 
+        playerContainer.innerHTML = "";
+        playerList.data.players.forEach(player => {
+            const singlePlayerContainer = document.createElement("div");
+            singlePlayerContainer.classList.add("player");
+            singlePlayerContainer.innerHTML = `
+                <div class="card-header">
+                <div class="player-name">${player.name.toUpperCase()}</div>
+                <div class="player-id">#${player.id}</div>
+                </div>
+                <img class="player-img" src="${player.imageUrl}" alt="Puppy Image">
+                <div class="button-footer">
+                <button class="details-button" type="button" data-id="player.id">See Details</button>
+                <button class="remove-button" type="button" data-id="player.id">Remove</button>
+                </div>
+               
+            `;
+            playerContainer.appendChild(singlePlayerContainer);
+
+            const removeButton = singlePlayerContainer.querySelector(`.remove-button`);
+            removeButton.addEventListener(`click`, () => {
+                removePlayer(player.id);
+                location.reload();
+            });
+
+            const detailsButton = singlePlayerContainer.querySelector(`.details-button`);
+            detailsButton.addEventListener(`click`, () => {
+                renderSinglePlayer(player.id);
+
+            });
+
+        });
+
     } catch (err) {
         console.error('Uh oh, trouble rendering players!', err);
     }
@@ -105,21 +137,20 @@ init();
  */
 async function deletePlayer(playerId) {
     try {
-      const response = await fetch(`${https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-et-web-pt-b/players}/${playerId}`, {
-        method: "DELETE",
+        const response = await fetch(`${https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-et-web-pt-b/players}/${playerId}`, {
+            method: "DELETE",
       });
-  
-      if (response.ok) {
+
+    if (response.ok) {
         const data = await response.json();
         console.log("Player deleted successfully:", data);
-      } else {
+    } else {
         throw new Error("Failed to delete player");
-      }
-    } catch (error) {
-      console.error("Error deleting player:", error);
     }
+} catch (error) {
+    console.error("Error deleting player:", error);
+}
   }
-  
-  // Call the function with the desired player ID
-  deletePlayer(playerId);
-   
+
+// Call the function with the desired player ID
+deletePlayer(playerId);
