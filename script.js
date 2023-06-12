@@ -111,6 +111,50 @@ const renderAllPlayers = (playerList) => {
 };
 
 
+/* 
+Use a try/catch block
+This function should only render an object of player based on an ID
+Function takes a param "playerId" and it uses "fetchSinglePlayer" function to render the info.
+This function should have a back button which takes the user back to render all players
+*/
+const renderSinglePlayer = async (playerId) => {
+    try {
+        const response = await fetchSinglePlayer(playerId);
+        const player = response.data.player;
+        playerContainer.innerHTML = "";
+        const singlePlayerContainer = document.createElement("div");
+        singlePlayerContainer.classList.add("player");
+        singlePlayerContainer.innerHTML = `
+                <img class="player-img" src="${player.imageUrl}" alt="Puppy Image">
+                <div class="button-footer">
+                <button class="back-button" type="button" data-id="player.id">Back</button>
+                <button class="remove-button" type="button" data-id="player.id">Remove</button>
+                </div>
+
+                <div class="details">
+                <div>
+                <p>ID: ${player.id}</p>
+                <p>Name: ${player.name.toUpperCase()}</p>
+                <p>Breed: ${player.breed}</p>
+                <p>Status: ${player.status}</p>
+                <p>Cohort ID: ${player.cohortId}</p>
+                <p>Team ID: ${player.teamId}</p>
+                </div>
+                </div>
+               
+            `;
+        playerContainer.appendChild(singlePlayerContainer);
+        const backButton = singlePlayerContainer.querySelector(`.back-button`);
+        backButton.addEventListener(`click`, () => {
+            window.location.reload();
+        });
+
+    } catch (error) {
+
+    }
+};
+
+
 /**
  * It renders a form to the DOM, and when the form is submitted, it adds a new player to the database,
  * fetches all players from the database, and renders them to the DOM.
@@ -131,26 +175,3 @@ const init = async () => {
 };
 
 init();
-
-/**
- * In "removePlayer" function use DELETE method to remove an object of player by ID
- */
-async function deletePlayer(playerId) {
-    try {
-        const response = await fetch(`${https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-et-web-pt-b/players}/${playerId}`, {
-            method: "DELETE",
-      });
-
-    if (response.ok) {
-        const data = await response.json();
-        console.log("Player deleted successfully:", data);
-    } else {
-        throw new Error("Failed to delete player");
-    }
-} catch (error) {
-    console.error("Error deleting player:", error);
-}
-  }
-
-// Call the function with the desired player ID
-deletePlayer(playerId);
