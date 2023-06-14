@@ -36,14 +36,22 @@ const addNewPlayer = async (playerObj) => {
 
 const removePlayer = async (playerId) => {
     try {
+        const response = await fetch(`${APIURL}/${playerId}`, {
+            method: "DELETE",
+          });
+      
+          const data = await response.json();
+          console.log(data);
+          // Process the response or handle success/error cases here
+        } catch (error) {
+          console.log("An error occurred:", error);
+          // Handle the error or show an error message
+        }
+      }
+      
+      // Call the function with the desired player ID
+      deletePlayer(6203);
 
-    } catch (err) {
-        console.error(
-            `Whoops, trouble removing player #${playerId} from the roster!`,
-            err
-        );
-    }
-};
 
 /**
  * It takes an array of player objects, loops through them, and creates a string of HTML for each
@@ -94,27 +102,3 @@ const init = async () => {
 }
 
 init();
-
-/**
- * In "removePlayer" function use DELETE method to remove an object of player by ID
- */
-async function deletePlayer(playerId) {
-    try {
-      const response = await fetch(`${https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-et-web-pt-b/players}/${playerId}`, {
-        method: "DELETE",
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Player deleted successfully:", data);
-      } else {
-        throw new Error("Failed to delete player");
-      }
-    } catch (error) {
-      console.error("Error deleting player:", error);
-    }
-  }
-  
-  // Call the function with the desired player ID
-  deletePlayer(playerId);
-   
