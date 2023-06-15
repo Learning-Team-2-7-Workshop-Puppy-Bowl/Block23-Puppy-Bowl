@@ -81,8 +81,84 @@ const removePlayer = async (playerId) => {
 const renderAllPlayers = (playerList) => {
     try {
 
+        playerContainer.innerHTML = "";
+        playerList.data.players.forEach(player => {
+            const singlePlayerContainer = document.createElement("div");
+            singlePlayerContainer.classList.add("player");
+            singlePlayerContainer.innerHTML = `
+                <div class="card-header">
+                <div class="player-name">${player.name.toUpperCase()}</div>
+                <div class="player-id">#${player.id}</div>
+                </div>
+                <img class="player-img" src="${player.imageUrl}" alt="Puppy Image">
+                <div class="button-footer">
+                <button class="details-button" type="button" data-id="player.id">See Details</button>
+                <button class="remove-button" type="button" data-id="player.id">Remove</button>
+                </div>
+               
+            `;
+            playerContainer.appendChild(singlePlayerContainer);
+
+            const removeButton = singlePlayerContainer.querySelector(`.remove-button`);
+            removeButton.addEventListener(`click`, () => {
+                removePlayer(player.id);
+                location.reload();
+            });
+
+            const detailsButton = singlePlayerContainer.querySelector(`.details-button`);
+            detailsButton.addEventListener(`click`, () => {
+                renderSinglePlayer(player.id);
+
+            });
+
+        });
+
     } catch (err) {
         console.error('Uh oh, trouble rendering players!', err);
+    }
+};
+
+
+/* 
+Use a try/catch block
+This function should only render an object of player based on an ID
+Function takes a param "playerId" and it uses "fetchSinglePlayer" function to render the info.
+This function should have a back button which takes the user back to render all players
+*/
+const renderSinglePlayer = async (playerId) => {
+    try {
+        const response = await fetchSinglePlayer(playerId);
+        const player = response.data.player;
+        playerContainer.innerHTML = "";
+        const singlePlayerContainer = document.createElement("div");
+        singlePlayerContainer.classList.add("player");
+        singlePlayerContainer.innerHTML = `
+                <img class="player-img" src="${player.imageUrl}" alt="Puppy Image">
+                <div class="button-footer">
+                <button class="back-button" type="button" data-id="player.id">Back</button>
+                <button class="remove-button" type="button" data-id="player.id">Remove</button>
+                </div>
+
+                <div class="details">
+                <div>
+                <p>ID: ${player.id}</p>
+                <p>Name: ${player.name.toUpperCase()}</p>
+                <p>Breed: ${player.breed}</p>
+                <p>Status: ${player.status}</p>
+                <p>Cohort ID: ${player.cohortId}</p>
+                <p>Team ID: ${player.teamId}</p>
+                </div>
+                </div>
+               
+            `;
+        playerContainer.appendChild(singlePlayerContainer);
+        const backButton = singlePlayerContainer.querySelector(`.back-button`);
+        backButton.addEventListener(`click`, () => {
+            window.location.reload();
+        });
+
+    } catch (error) {
+
     }
 };
 
