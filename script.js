@@ -54,9 +54,6 @@ const removePlayer = async (playerId) => {
         }
       }
       
-      // Call the function with the desired player ID
-      deletePlayer(6203);
-
 
 /**
  * It takes an array of player objects, loops through them, and creates a string of HTML for each
