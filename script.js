@@ -228,7 +228,7 @@ const renderNewPlayerForm = async() => {
             name: nameInput.value,
             breed: breedInput.value,
             status: statusInput.value,
-            imgUrl: imgUrlInput.value,
+            imageUrl: imgUrlInput.value,
             };
 
             // Add the newPlayer object
