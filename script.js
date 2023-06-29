@@ -41,7 +41,6 @@ const addNewPlayer = async (playerObj) => {
             headers: { "Content-Type": "application/json", },
         });
         const result = await response.json();
-        console.log("f Resutl: ", result);
         return result;
 
     } catch (err) {
@@ -244,7 +243,7 @@ const renderNewPlayerForm = async() => {
                 <br/>
                 <button id="ok-button">OK</button>
                 `;
-                
+
                 const okButton = document.querySelector("#ok-button");
                 okButton.addEventListener("click", () => {
                     location.reload()
